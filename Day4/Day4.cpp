@@ -106,22 +106,41 @@ private:
             }
         }
         
-        std::regex_search(passport, m, std::regex("hcl:(#[0-9|a-f]{6})"));
+        std::regex_search(passport, m, std::regex("hcl:(#[0-9|a-f]*)"));
         if (m.size() < 1) {
+            return false;
+        }
+        if (m[1].str().size() != 7) {
             return false;
         }
 
         std::regex_search(passport, m, std::regex("ecl:(amb|blu|brn|gry|grn|hzl|oth){1}"));
-        if (m.size() < 1) return false;
-        if (m.size() > 2) return false;
+        //if (m.size() < 1) return false;
+        //if (m.size() > 2) return false;
         std::set<std::string> valid_colours{ "amb", "blu", "brn", "gry", "grn", "hzl", "oth" };
-        auto it = valid_colours.find(m[1].str());
-        if (valid_colours.count(m[1].str()) != 1) {
+        //auto it = valid_colours.find(m[1].str());
+        //if (valid_colours.count(m[1].str()) != 1) {
+        //    return false;
+        //}
+        
+        int count = 0;
+        for (auto c : valid_colours) {
+            int index;
+            int pos = 0;
+            while ((index = passport.find("ecl:" + c, pos)) != std::string::npos) {
+                count++;
+                pos = index + 1; //new position is from next element of index
+            }
+        }
+        if (count != 1) {
             return false;
         }
-
-        std::regex_search(passport, m, std::regex("pid:([0-9]{9})"));
+       
+        std::regex_search(passport, m, std::regex("pid:([0-9]*)"));
         if (m.size() < 1) {
+            return false;
+        }
+        if (m[1].str().size() != 9) {
             return false;
         }
 
