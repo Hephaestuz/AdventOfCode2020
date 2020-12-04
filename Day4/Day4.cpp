@@ -11,10 +11,10 @@
 class Solution {
 public:
     Solution(const std::string& filename = "puzzle_input.txt") {
-        load(filename);
+        validate(filename);
     }
 private:
-    void load(const std::string& filename) {
+    void validate(const std::string& filename) {
         std::ifstream f(filename);
         if (f.is_open()) {
             int basic = 0;
@@ -111,14 +111,14 @@ private:
             return false;
         }
 
-        std::regex_search(passport, m, std::regex("ecl:(amb|blu|brn|gry|grn|hzl|oth){1}\s"));
+        std::regex_search(passport, m, std::regex("ecl:(amb|blu|brn|gry|grn|hzl|oth){1}"));
         if (m.size() < 1) return false;
+        if (m.size() > 2) return false;
         std::set<std::string> valid_colours{ "amb", "blu", "brn", "gry", "grn", "hzl", "oth" };
         auto it = valid_colours.find(m[1].str());
         if (valid_colours.count(m[1].str()) != 1) {
             return false;
         }
-        std::cout << passport << std::endl;
 
         std::regex_search(passport, m, std::regex("pid:([0-9]{9})"));
         if (m.size() < 1) {
