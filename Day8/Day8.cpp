@@ -86,9 +86,14 @@ private:
 
 int main()
 {
-    Solution s;
-    s.loadProgram();
-    //s.printProgram();
-    std::cout << "Accumlator value at start of infinite loop: " << s.run() << std::endl;
-    std::cout << "Accumlator value at of corrected program: " << s.fixProgram() << std::endl;
+    try {
+        Solution s;
+        s.loadProgram();
+        //s.printProgram();
+        std::cout << "Accumulator value at start of infinite loop: " << s.run() << std::endl;
+        std::cout << "Accumulator value at of corrected program: " << s.fixProgram() << std::endl;
+    }
+    catch (std::exception e) {
+        std::cerr << e.what() << std::endl;
+    }
 }
