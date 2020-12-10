@@ -71,12 +71,10 @@ public:
         int previous = 0;
         unsigned long long path_to_previous = 1;
         for (int i = 0; i < adapters_.size(); ++i) {
-            int micro_path = 0;
             auto it = routes_to.find(previous);
             path_to_previous = it->second;
             for (int j = i; j < adapters_.size(); ++j) {
                 if (adapters_[j] - previous < 4) {
-                    ++micro_path;
                     auto jt = routes_to.find(adapters_[j]);
                     jt->second += path_to_previous;
                 }
