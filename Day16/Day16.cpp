@@ -29,19 +29,20 @@ struct Field {
         high_max_ = stoi(sm[4].str());
     }
 
-    bool valid(int i) {
+    bool valid(int i) const {
         if (i < low_min_) {
             return false;
         }
-        if (i < low_max_) {
+        if (i <= low_max_) {
             return true;
         }
         if (i < high_min_) {
             return false;
         }
-        if (i < high_max_) {
+        if (i <= high_max_) {
             return true;
         }
+        return false;
     }
 };
 
@@ -85,11 +86,48 @@ class Solution {
 public:
     int part1() {
         load();
-        printData();
-
+        int sum = 0;
         for (const auto& t : tickets_) {
-
+            bool t_condition = true;
+            for (auto d : t.data_) {
+                bool condition = false;
+                for (auto r : rules_) {
+                    if (r.valid(d)) {
+                        condition = true;
+                        break;
+                    }
+                }
+                if (!condition) {
+                    t_condition = false;
+                    sum += d;
+                }
+            }
+            if (t_condition) {
+                valid_tickets_.push_back(t);
+            }
         }
+        return sum;
+    }
+    int part2() {
+        
+        int col_count = my_ticket_.data_.size();
+
+        for (int i = 0; i < col_count; ++i) {
+            std::cout << "Column " << i << ":" << std::endl;
+            for (const auto& r : rules_) {
+                bool condition = true;
+                for (const auto& vt : valid_tickets_) {
+                    if (!r.valid(vt.data_[i])) {
+                        condition = false;
+                        break;
+                    }
+                }
+                if (condition) {
+                    std::cout << "\t" << r << std::endl;
+                }
+            }
+        }
+
         return -1;
     }
 private:
@@ -132,18 +170,24 @@ private:
         for (auto& t : tickets_) {
             std::cout << t << std::endl;
         }
+        std::cout << "Valid tickets: " << std::endl;
+        for (auto& t : valid_tickets_) {
+            std::cout << t << std::endl;
+        }
     }
 private:
     std::vector<Field> rules_;
     Ticket my_ticket_;
     std::vector<Ticket> tickets_;
+    std::vector<Ticket> valid_tickets_;
 };
 
 int main()
 {
     try {
         Solution s;
-        s.part1();
+        std::cout << "Part 1: " << s.part1() << std::endl;
+        std::cout << "Part 2: " << s.part2() << std::endl;
     }
     catch (std::exception& e) {
         std::cerr << e.what() << std::endl;

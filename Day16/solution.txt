@@ -1,0 +1,26 @@
+Column 0: arrival platform: 32-119 or 140-967        
+Column 1: departure location: 29-766 or 786-950
+Column 2: arrival location: 48-533 or 556-974
+Column 3: type: 32-59 or 73-974
+Column 4: duration: 30-271 or 293-974
+Column 5: departure station: 40-480 or 491-949
+Column 6: train: 29-500 or 513-964
+Column 7: departure track: 33-657 or 673-970
+Column 8: arrival station: 42-597 or 620-957
+Column 9: departure platform: 46-373 or 397-957
+Column 10: seat: 43-181 or 194-955
+Column 11: row: 36-842 or 851-972
+Column 12: departure time: 33-231 or 250-966
+Column 13: wagon: 47-809 or 816-957
+Column 14: route: 49-153 or 159-953
+Column 15: departure date: 31-433 or 445-961
+Column 16: zone: 44-451 or 464-955
+Column 17: arrival track: 28-750 or 762-973
+Column 18: price: 33-712 or 718-966
+Column 19: class: 26-88 or 101-950
+
+your ticket:
+
+151,103,173,199,211,107,167,59,113,179,53,197,83,163,101,149,109,79,181,73
+
+103 107 59 179 83 149
